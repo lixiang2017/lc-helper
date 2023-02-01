@@ -3,6 +3,7 @@ run-name: ${{ github.actor }} is running
 on:
   schedule:
     - cron: '50 16 * * *'
+    - cron: '50 17 * * *'
   workflow_dispatch:
 
 jobs:
