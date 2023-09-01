@@ -18,8 +18,6 @@ interface LoginResponse {
  */
 export async function login({ account, password }: LoginRequest) {
   console.log(`登录进行中...`);
-  console.log(account);
-  console.log(password);
   const authData = await request.post<
     IResponse<LoginResponse>,
     IResponse<LoginResponse>
