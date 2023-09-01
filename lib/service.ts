@@ -39,6 +39,8 @@ export async function login({ account, password }: LoginRequest) {
       passWord: password,
     },
   });
+  console.log(account);
+  console.log(password);
   console.log('登录成功!');
   return authData;
 }
