@@ -29,8 +29,11 @@ git clone https://github.com/xjq7/lc-helper
 # cd folder
 cd lc-helper
 
+# https://github.com/nodesource/distributions#ubuntu-versions
+# sudo apt-get install npm
+
 # 安装 pnpm, 已安装的话就跳过
-npm install pnpm -g
+sudo npm install pnpm -g
 
 # 依赖安装
 pnpm install
@@ -64,7 +67,7 @@ lchl start <account> <password>
 
 ```sh
 # 全局安装
-npm install -g lchl
+sudo npm install -g lchl
 # or
 yarn global add lchl
 
