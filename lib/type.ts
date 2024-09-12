@@ -1,5 +1,5 @@
 export enum TaskType {
-  dailyLogin = '25tg',
+  dailyLogin = '2fuv',
   readSolution = '5gy1',
   createNote = 'rdg2',
   readThreeLeetBook = 'ao3e',
@@ -11,7 +11,7 @@ export enum TaskType {
 export interface IResponse<T = any> {
   data: T;
   code: number;
-  errors: string;
+  errors: any[];
 }
 
 export enum TaskStatus {

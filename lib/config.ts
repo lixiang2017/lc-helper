@@ -1,18 +1,21 @@
-export interface AuthConfig {
-  access_token: string;
+export interface IConfig {
+  session?: string;
+  platform?: string;
+  version?: string;
+  authorization?: string;
 }
 
-export const authConfig: AuthConfig = { access_token: 'access_token' };
-
-export interface AuthCookie {
-  csrftoken: string;
+class Config {
+  static _config: IConfig = {
+    version: '2.14.1',
+    platform: 'iOS',
+  };
+  static get() {
+    return Config._config;
+  }
+  static set(config: Config) {
+    Config._config = { ...Config._config, ...config };
+  }
 }
 
-export const authCookie: AuthCookie = { csrftoken: '' };
-
-export interface AppConfig {
-  version: string;
-  platform: string;
-}
-
-export const appConfig = { version: '2.9.4', platform: 'iOS' };
+export { Config };

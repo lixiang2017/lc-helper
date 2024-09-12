@@ -1,9 +1,8 @@
 import Axios from 'axios';
-import cookie from 'cookie';
 import { refreshUUID } from './helper';
-import { authConfig, authCookie, appConfig } from './config';
+import { Config } from './config';
 
-const { version, platform } = appConfig;
+const { platform, version } = Config.get();
 
 const instance = Axios.create({
   baseURL: 'https://leetcode.cn',
@@ -15,42 +14,28 @@ const instance = Axios.create({
     'content-type': 'application/json',
     Accept: '*/*',
     'Accept-Encoding': 'gzip',
-    timeStamp: Date.now(),
     version,
+    timeStamp: Date.now(),
   },
 });
 
 instance.interceptors.request.use((config) => {
   const headers = config.headers || {};
-  const { csrftoken } = authCookie;
-  let { access_token } = authConfig;
+  let { session, authorization } = Config.get();
+
   const uuid = refreshUUID();
   headers.uuUserId = 'IOS_' + uuid;
-  if (access_token) headers.Authorization = `Bearer ${access_token}`;
-  if (csrftoken) headers.cookie = `csrftoken=${csrftoken};`;
+  if (authorization) {
+    headers.Authorization = authorization;
+  }
+  if (session) {
+    headers.cookie = session;
+  }
   return config;
 });
 
 instance.interceptors.response.use(
   (response) => {
-    const cookieRes = response.headers['set-cookie'] || [];
-
-    const errors = response?.data?.errors;
-    if (errors) {
-      return Promise.reject(errors);
-    }
-
-    if (cookieRes.length) {
-      cookieRes.forEach((value) => {
-        const curCookie = cookie.parse(value.replace(/;.*/g, ''));
-        if (
-          curCookie['csrftoken'] &&
-          curCookie['csrftoken'] !== authCookie.csrftoken
-        ) {
-          authCookie.csrftoken = curCookie.csrftoken;
-        }
-      });
-    }
     return response.data;
   },
   (error) => {

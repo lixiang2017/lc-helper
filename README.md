@@ -1,3 +1,37 @@
+## 2024-07-05 更新
+
+力扣限制又严格了一些, 需要抓包 App 获取两个认证 token
+
+所以需要各位在 App 上去获取 cookie 跟 authorization 信息设置到 action 变量中
+
+IOS 用户推荐 软件 Stream
+
+调好抓包软件后, 开始抓包
+
+![alt text](ae22750779a0525daaf30a78450c2b8.jpg)
+
+登录 App 之后进入任务中心
+
+![alt text](e3bd55b5ff2ec265dfbfc9a96e566a6.jpg)
+
+随便找到一个 graphql 接口
+
+![alt text](9ae86673a9906519dcfeae5527ded17.jpg)
+
+找到 cookie 跟 Authorization 两个请求头
+
+![alt text](image.png)
+
+新增一个名为 SESSION 的变量, 值使用 cookie 内容
+
+再新增一个名为 AUTHORIZATION 的变量, 值使用 Authorization 头的内容
+
+![Alt text](1694178477619.png)
+
+设置完成之后可以手动执行一下 试试效果
+
+cookie 跟 Authorization 失效之后需要重新设置
+
 ## 力扣辅助
 
 自动完成每日任务领取积分
@@ -43,7 +77,7 @@ pnpm install
 ### 本地调试
 
 ```sh
-pnpm dev <account> <password>
+pnpm dev '<session>' '<authorization>'
 ```
 
 ### 命令行工具调试
@@ -56,7 +90,7 @@ pnpm tsc
 npm link --force
 
 # 运行
-lchl start <account> <password>
+lchl start '<session>' '<authorization>'
 ```
 
 ## 使用
@@ -72,10 +106,10 @@ sudo npm install -g lchl
 yarn global add lchl
 
 # 运行
-lchl start <account> <password>
+lchl start '<session>' '<authorization>'
 
 # example
-lchl start 16618922034 123456
+lchl start '<你的 session cookie>' '<你的 authorization>'
 ```
 
 ### 定时任务执行
@@ -96,13 +130,9 @@ lchl start 16618922034 123456
 
 <img src="https://image.xjq.icu/2022/12/9/1670551587314_%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16705515849451.png" />
 
-填写一个 Name 为 ACCOUNT 的 key, Secret 为你的账号
+填写一个 Name 为 SESSION 的 key, Secret 为你的 session cookie, session cookie 的获取方式请看 README 顶部
 
-<img src="https://image.xjq.icu/2022/12/9/1670551562380_%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16705515617312.png" />
-
-填写一个 Name 为 PASSWORD 的 key, Secret 为你的密码
-
-<img src="https://image.xjq.icu/2022/12/9/1670551635271_%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_16705516315538.png" />
+![Alt text](1694179190029.png)
 
 3. 在 Action 中手动触发验证
 
